@@ -5,7 +5,7 @@ const mapActions = {
     description: "创建一个项目", // 描述
     examples: [
       //用法
-      "my-cli create <project-name>",
+      "zyb-cli create <project-name>",
     ],
   },
   config: {
@@ -14,8 +14,8 @@ const mapActions = {
     description: "config project variable", // 描述
     examples: [
       //用法
-      "my-cli config set <k> <v>",
-      "my-cli config get <k>",
+      "zyb-cli config set <k> <v>",
+      "zyb-cli config get <k>",
     ],
   },
   "*": {
@@ -25,7 +25,6 @@ const mapActions = {
   },
 };
 // git仓库的账号名
-// const userName = 'lxy-cli'
 const userName = 'Bokrystal'
 
 
