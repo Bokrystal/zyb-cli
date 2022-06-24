@@ -1,5 +1,8 @@
-const inquirer = require("inquirer");
+// create的功能是 创建项目
 
+// inquirer 注意安装版本，太新的版本不支持 Common.js 模块规范 require
+const inquirer = require("inquirer");
+const program = require('commander');
 const {
   fnLoadingByOra,
   fetchReopLists,
@@ -10,11 +13,11 @@ const {
 
 module.exports = async (projectName) => {
   // let repos = await fetchReopLists()
-  let repos = await fnLoadingByOra(fetchReopLists, "正在链接你的仓库...")();
+  let repos = await fnLoadingByOra(fetchReopLists, "正在链接模板的仓库...")();
   repos = repos.map((item) => item.name);
-  //  console.log(repos, projectName);
+   console.log(repos, projectName);
   // 使用inquirer 在命令行中可以交互
-  // inquirer 注意安装版本，太新的版本不支持 Common.js 模块规范 require
+
   //   inquirer.prompt([
   //     {
   //       type: 'confirm',
