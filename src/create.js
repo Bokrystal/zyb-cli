@@ -2,7 +2,7 @@
 
 // inquirer 注意安装版本，太新的版本不支持 Common.js 模块规范 require
 const inquirer = require("inquirer");
-const program = require('commander');
+
 const {
   fnLoadingByOra,
   fetchReopLists,
@@ -58,6 +58,9 @@ module.exports = async (projectName) => {
   ]);
   console.log(`选中的仓库 ${repo} 的版本为：${tag}`);
 // 下载项目到临时文件夹 C:\Users\lee\.myTemplate
-const target = await fnLoadingByOra(downDir, '下载项目中...')(repo, tag);
-await copyTempToLocal(target, projectName);
+const { dest, result } = await fnLoadingByOra(downDir, '下载项目中...')(repo, tag);
+console.log(dest, result)
+if(result) await copyTempToLocal(dest, projectName);
+else console("请重试！")
+
 };

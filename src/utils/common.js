@@ -115,16 +115,18 @@ const downDir = async (repo, tag) => {
 
   // 创建本地临时项目地址 c:/用户/admin/.myTemplate
   let dest = `${downloadDirectory}/${repo}`;
+  let result = null;
   //把项目下载当对应的目录中
   // console.log(dest, "项目从git上下载后存在的临时目录");
   // console.log(project, "该版本的项目的git地址");
   try {
-    await downloadGit(project, dest);
+    result = await downloadGit(project, dest);
   } catch (error) {
     // console.log(error);
+    result = null
     console.log(chalk.red(`下载仓库${project}信息失败，错误信息：${error} \n`));
   }
-  return dest;
+  return { dest, result };
 };
 
 // 从本地临时文件 复制项目 到本地工作文件
