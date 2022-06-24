@@ -22,7 +22,7 @@
     "ora": "^5.1.0"
   },
   "bin": {
-    "zyb-cli": "./bin/www.js"
+    "zyb-cli": "./bin/index.js"
   },
   "devDependencies": {
     "eslint": "^8.18.0",
