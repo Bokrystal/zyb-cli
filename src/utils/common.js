@@ -19,7 +19,10 @@ const metalsmith = require("metalsmith");
 let { render } = require("consolidate").ejs;
 render = promisify(render); // 包装渲染方法
 // git仓库的账号名
-const userName = "Bokrystal";
+// const userName = "Bokrystal";
+const config = require('../config');
+// 通过代码主动触发命令 getVal
+const repoUrlObj = config('getVal');
 
 // 根据我们想要实现的功能配置执行动作，遍历产生对应的命令
 const mapActions = {
@@ -50,23 +53,27 @@ const mapActions = {
 
 // 获取仓库列表
 const fetchRepoLists = async () => {
-  const repoType = "users";
+  // const repoType = "users";
   // const repoType = 'orgs'
-  const typeCn = "users"? '用户': '组织'
+  // const typeCn = "users"? '用户': '组织'
+  
   // 获取当前组织或者用户中的所有仓库信息,这个仓库中存放的都是项目模板
   const { data } = await axios
-    .get(`https://api.github.com/${repoType}/${userName}/repos`)
+    // .get(`https://api.github.com/${repoType}/${userName}/repos`)
+    .get(`https://api.github.com/${repoUrlObj.k}/${repoUrlObj.v}/repos`)
     .catch((err) => {
-      console.log(
-        chalk.red(`链接${typeCn} ${userName} 失败，错误信息：${err} \n`)
-      );
+      // console.log(
+      //   chalk.red(`链接${typeCn} ${userName} 失败，错误信息：${err} \n`)
+      // );
+      console.log(chalk.red(`链接${repoUrlObj.v}失败，错误信息：${err} \n`));
       return {
         data: undefined,
       };
     });
     
   if (data && Array.isArray(data) && data.length == 0) {
-    console.log(chalk.yellow(`\n 链接${typeCn} ${userName} 获取仓库列表为空 \n`));
+    // console.log(chalk.yellow(`\n 链接${typeCn} ${userName} 获取仓库列表为空 \n`));
+    console.log(chalk.yellow(`\n 链接${repoUrlObj.v}获取仓库列表为空 \n`));
     return;
   }
   return data;
@@ -90,7 +97,8 @@ const fnLoadingByOra =
 // 获取仓库(repo)的版本号信息
 const getTagLists = async (repo) => {
   const { data } = await axios
-    .get(`https://api.github.com/repos/${userName}/${repo}/tags`)
+    // .get(`https://api.github.com/repos/${userName}/${repo}/tags`)
+    .get(`https://api.github.com/repos/${repoUrlObj.v}/${repo}/tags`)
     .catch((err) => {
       console.log(
         chalk.red(`链接仓库${repo}获取版本信息失败，错误信息：${err} \n`)
@@ -108,7 +116,8 @@ const getTagLists = async (repo) => {
 
 // 将项目下载到当前用户的临时文件夹下
 const downDir = async (repo, tag) => {
-  let project = `${userName}/${repo}`; //下载的项目
+  // let project = `${userName}/${repo}`; //下载的项目
+  let project = `${repoUrlObj.v}/${repo}`; //下载的项目
   if (tag) {
     project += `#${tag}`;
   }
@@ -123,7 +132,6 @@ const downDir = async (repo, tag) => {
     result = await downloadGit(project, dest);
   } catch (error) {
     // console.log(error);
-    result = null
     console.log(chalk.red(`下载仓库${project}信息失败，错误信息：${error} \n`));
   }
   return { dest, result };

@@ -20,8 +20,9 @@ Reflect.ownKeys(mapActions).forEach((action) => {
         // 分解命令 到文件里 有多少文件 就有多少配置 create config
         // zyb-cli create project-name ->[node,zyb-cli,create,project-name]
         console.log(process.argv);
-        // 拼接当前绝对路径+命令 -> /zyb-cli/src/create.js
-        // 即执行 create.js
+        // 拼接当前绝对路径+命令 -> /zyb-cli/src/create.js（或config.js）
+        // 即执行 create.js（或config.js）
+        // process.argv.slice(3) 即从第四个值开始，作为create/config命令的参数传入
         require(path.join(__dirname,action))(...process.argv.slice(3))
       }
     });
