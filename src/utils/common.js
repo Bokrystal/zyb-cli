@@ -49,7 +49,7 @@ const mapActions = {
 };
 
 // 获取仓库列表
-const fetchReopLists = async () => {
+const fetchRepoLists = async () => {
   const repoType = "users";
   // const repoType = 'orgs'
   const typeCn = "users"? '用户': '组织'
@@ -191,7 +191,7 @@ const copyTempToLocal = async (target, projectName) => {
 module.exports = {
   mapActions,
   fnLoadingByOra,
-  fetchReopLists,
+  fetchRepoLists,
   getTagLists,
   downDir,
   copyTempToLocal,

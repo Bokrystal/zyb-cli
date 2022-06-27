@@ -5,15 +5,15 @@ const inquirer = require("inquirer");
 
 const {
   fnLoadingByOra,
-  fetchReopLists,
+  fetchRepoLists,
   getTagLists,
   downDir,
   copyTempToLocal
 } = require("./utils/common");
 
 module.exports = async (projectName) => {
-  // let repos = await fetchReopLists()
-  let repos = await fnLoadingByOra(fetchReopLists, "正在链接模板的仓库...")();
+  // let repos = await fetchRepoLists()
+  let repos = await fnLoadingByOra(fetchRepoLists, "正在链接模板的仓库...")();
   repos = repos.map((item) => item.name);
    console.log(repos, projectName);
   // 使用inquirer 在命令行中可以交互

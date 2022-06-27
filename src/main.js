@@ -21,12 +21,13 @@ Reflect.ownKeys(mapActions).forEach((action) => {
         // zyb-cli create project-name ->[node,zyb-cli,create,project-name]
         console.log(process.argv);
         // 拼接当前绝对路径+命令 -> /zyb-cli/src/create.js
+        // 即执行 create.js
         require(path.join(__dirname,action))(...process.argv.slice(3))
       }
     });
 });
 
-
+// 自定义事件监听
 // 监听用户的help事件
 program.on('--help',()=>{
   console.log('\nExamples:');
@@ -40,8 +41,9 @@ program.on('--help',()=>{
 process.argv 属性返回一个数组，这个数组包含了启动Node.js进程时的命令行参数， 其中：
 1 数组的第一个元素process.argv[0]——返回启动Node.js进程的可执行文件所在的绝对路径 
 2 第二个元素process.argv[1]——为当前执行的JavaScript文件路径 
-3 剩余的元素为其他命令行参数*/
+3 剩余的元素为用户输入的的每个命令行参数*/
 // console.log(process.argv);
+// .version()方法可以设置cli的版本，-V和--version设置输入什么样的命令值后命令行可以输出当前的版本号。
 program.version(version,'-v','--version').parse(process.argv);
 // 如果只是执行了 zyb-cli 命令 相当于执行 zyb-cli --help
 if(!program.args.length){
